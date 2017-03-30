@@ -1,4 +1,4 @@
-require(["underscore"]);
+require(['underscore']);
 
 var Queue = function() {
   // Hey! Rewrite in the new style. Your code will wind up looking very similar,

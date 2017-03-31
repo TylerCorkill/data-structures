@@ -1,6 +1,7 @@
 var HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
+  this.size = 0;
 };
 
 HashTable.prototype.insert = function(key, value) {
@@ -14,9 +15,11 @@ HashTable.prototype.insert = function(key, value) {
       }
     }
     bucket.push([key, value]);
+    this.size++;
   } else {
     let bucket = [[key, value]];
     this._storage.set(index, bucket);
+    this.size++;
   }
 };
 
@@ -38,17 +41,28 @@ HashTable.prototype.remove = function(key) {
     for (var i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === key) {
         bucket.splice(i, 1);
+        this.size--;
         break;
       }
     }
     if (!bucket.length) {
       this._storage.each( function(value, i, storage) {
-        if (i === index) { storage[i] = undefined; }
+        if (i === index) {
+          storage[i] = undefined;
+          this.size--;
+        }
       });
     }
   }
 };
 
+HashTable.prototype.doubleLimit = function() {
+
+};
+
+HashTable.prototype.halveLimit = function() {
+
+};
 
 /*
  * Complexity: What is the time complexity of the above functions?

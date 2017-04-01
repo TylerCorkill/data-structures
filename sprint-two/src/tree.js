@@ -40,7 +40,26 @@ treeMethods.removeFromParent = function() {
   this.parent = null;
 };
 
+treeMethods.traverse = function(callback) {
 
+  var findTopLevel = function (tree) {
+    if (tree.parent) {
+      return findTopLevel(tree.parent);
+    } else {
+      return tree;
+    }
+  };
+
+  var callOn = function(tree, callback) {
+    tree.value = callback(tree.value);
+    for (var child of tree.children) {
+      callOn(child, callback);
+    }
+  };
+
+  var top = findTopLevel(this);
+  callOn( top, callback );
+};
 
 /*
  * Complexity: What is the time complexity of the above functions?

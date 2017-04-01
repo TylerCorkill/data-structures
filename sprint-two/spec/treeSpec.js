@@ -65,19 +65,19 @@ describe('tree', function() {
     tree.children[0].addChild(9);
     tree.children[0].addChild(7);
 
-    // tree.children[1].addChild(12);
-    // tree.children[1].addChild(91);
-    // tree.children[1].addChild(75);
+    tree.children[1].addChild(12);
+    tree.children[1].addChild(91);
+    tree.children[1].addChild(75);
 
-    // tree.children[2].addChild(32);
-    // tree.children[2].addChild(23);
-    // tree.children[2].addChild(53);
+    tree.children[2].addChild(32);
+    tree.children[2].addChild(23);
+    tree.children[2].addChild(53);
 
     var addOne = function(value) {
       return value + 1;
     };
 
-    tree.children[0].traverse(addOne);
+    tree.children[1].children[2].traverse(addOne);
 
     expect(tree.children[0].value).to.equal(5);
     expect(tree.children[1].value).to.equal(7);
@@ -85,12 +85,12 @@ describe('tree', function() {
     expect(tree.children[0].children[0].value).to.equal(2);
     expect(tree.children[0].children[1].value).to.equal(10);
     expect(tree.children[0].children[2].value).to.equal(8);
-    // expect(tree.children[1].children[0].value).to.equal(13);
-    // expect(tree.children[1].children[1].value).to.equal(92);
-    // expect(tree.children[1].children[2].value).to.equal(76);
-    // expect(tree.children[2].children[0].value).to.equal(33);
-    // expect(tree.children[2].children[1].value).to.equal(24);
-    // expect(tree.children[2].children[2].value).to.equal(54);
+    expect(tree.children[1].children[0].value).to.equal(13);
+    expect(tree.children[1].children[1].value).to.equal(92);
+    expect(tree.children[1].children[2].value).to.equal(76);
+    expect(tree.children[2].children[0].value).to.equal(33);
+    expect(tree.children[2].children[1].value).to.equal(24);
+    expect(tree.children[2].children[2].value).to.equal(54);
   });
 
 

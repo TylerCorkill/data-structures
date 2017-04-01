@@ -1,9 +1,10 @@
 require(['underscore']);
 
-var Tree = function(value) {
+var Tree = function(value, parent = null) {
   var newTree = {};
   newTree.value = value;
   newTree.children = [];
+  newTree.parent = parent;
 
   return _.extend(newTree, treeMethods);
 };
@@ -12,7 +13,8 @@ var Tree = function(value) {
 var treeMethods = {};
 
 treeMethods.addChild = function(value) {
-  this.children.push(Tree(value));
+  var savedThis = this;
+  this.children.push(Tree(value, savedThis));
 };
 
 treeMethods.contains = function(target) {
@@ -26,6 +28,16 @@ treeMethods._search = function(target, node) {
     if (child.children.length && this._search(target, child)) { return true; }
   }
   return false;
+};
+
+treeMethods.removeFromParent = function() {
+  for (var i = 0; i < this.parent.children.length; i++) {
+    if (this === this.parent.children[i]) {
+      this.parent.children.splice(i, 1);
+      break;
+    }
+  }
+  this.parent = null;
 };
 
 
